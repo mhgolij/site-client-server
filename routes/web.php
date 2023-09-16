@@ -50,7 +50,17 @@ Route::get('/posts', function (Request $request) {
 Route::get('/post/{slug}', function ($slug) {
 
     $posts = DB::table('posts')
-    ->where('code',"post")
+    // ->where('code',"post")
+    ->select(
+        "image","title","mid_title","full_text",
+        "description","slug","id")
+        ->where("slug",$slug)->first();
+    return response()->json( $posts);
+})->middleware('cors');
+
+Route::get('/{slug}',function($slug){
+    $posts = DB::table('posts')
+    ->where('code','!=',"post")
     ->select(
         "image","title","mid_title","full_text",
         "description","slug","id")

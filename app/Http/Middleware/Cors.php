@@ -6,17 +6,20 @@ use Closure;
 class Cors
 {
     public function handle($request,Closure $next){
-        $header = [
-            'Access-Control-Allow-Origin'=>'*',
-            'Access-Control-Allow-Method'=>'*',
-            'Access-Control-Allow-Credentials'=>'false',
-            'Access-Control-Allow-Max-Age'=>'86000',
-            'Access-Control-Allow-Headers'=>'*',
+        $headers = [
+            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Max-Age'           => '86400',
+            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With'
         ];
+
         $response = $next($request);
-        foreach($header as $key => $value){
-            $response->header($key,$value);
+        foreach($headers as $key => $value)
+        {
+            $response->header($key, $value);
         }
+
         return $response;
     }
 }
