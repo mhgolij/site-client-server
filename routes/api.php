@@ -22,3 +22,7 @@ Route::any('/requestToJoin',function(Request $request){
     info($data);
     return response()->json(["status"=>"success"]);
 })->middleware('cors');
+Route::any('/sendReq', function (Request $request) {
+    info($request->all());
+    return response()->json(["status" =>"success"]);
+})->middleware('cors');
